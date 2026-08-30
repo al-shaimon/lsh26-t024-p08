@@ -123,7 +123,7 @@ function calculateStudentGPA(student, subjectsMap, compulsoryCodes) {
 }
 
 async function runTests() {
-  const fixturePath = path.resolve(__dirname, '../../../P08_school_results_public.json');
+  const fixturePath = path.resolve(__dirname, '../../../public/P08_school_results_public.json');
   console.log('Loading fixtures from:', fixturePath);
   const rawData = fs.readFileSync(fixturePath, 'utf8');
   const json = JSON.parse(rawData);
