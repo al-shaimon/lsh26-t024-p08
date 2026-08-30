@@ -25,16 +25,6 @@ export const App: React.FC = () => {
   const [selectedStudentForTrace, setSelectedStudentForTrace] = useState<StudentResult | null>(null);
   const [selectedStudentForPrint, setSelectedStudentForPrint] = useState<StudentResult | null>(null);
   const [selectedClassFilter, setSelectedClassFilter] = useState<string>('all');
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-
-  // Sync dark mode class with documentElement
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   // Handle case switcher change
   const handleSelectCase = (caseId: string) => {
@@ -81,13 +71,11 @@ export const App: React.FC = () => {
         selectedCaseId={selectedCaseId}
         onSelectCase={handleSelectCase}
         onReset={handleReset}
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
         studentCount={studentResults.length}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-6">
         {/* KPI Stats Overview */}
         <div className="no-print">
           <StatsOverview
@@ -134,13 +122,13 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400 no-print mt-auto">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-400 no-print mt-auto">
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
             Bogura Secondary School Result Processing Engine • Problem P08 (Tier 02 - Hard 7.5 pts)
           </p>
-          <p className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
-            Team: <span className="font-bold text-slate-700 dark:text-slate-300">LSH26-T024</span> • Event Start Code: <span className="font-bold text-slate-700 dark:text-slate-300">LSH26-8490-C900</span>
+          <p className="font-mono text-[11px] text-slate-500">
+            Team: <span className="font-bold text-slate-300">LSH26-T024</span> • Event Start Code: <span className="font-bold text-slate-300">LSH26-8490-C900</span>
           </p>
         </div>
       </footer>

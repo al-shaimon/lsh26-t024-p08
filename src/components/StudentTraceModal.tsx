@@ -29,28 +29,28 @@ export const StudentTraceModal: React.FC<StudentTraceModalProps> = ({
   const hasCompulsoryFail = student.isCompulsoryFail;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto no-print">
-      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md overflow-y-auto no-print">
+      <div className="bg-slate-900 text-slate-100 rounded-2xl border border-slate-800 shadow-2xl w-full max-w-5xl xl:max-w-6xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/80 dark:bg-slate-800/50">
+        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 rounded-xl">
+            <div className="p-2.5 bg-brand-950 text-brand-400 border border-brand-800 rounded-xl">
               <Calculator className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  Calculation & Rule Audit Trace
+                <h3 className="text-lg font-bold text-white">
+                  Calculation &amp; Rule Audit Trace
                 </h3>
-                <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200">
+                <span className="px-2 py-0.5 rounded text-xs font-mono font-bold bg-slate-800 text-slate-200 border border-slate-700">
                   {student.id}
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400">
+                <span className="text-xs text-slate-400">
                   • {student.class}
                 </span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Student: <span className="font-semibold text-slate-700 dark:text-slate-200">{student.name}</span>
+              <p className="text-xs text-slate-400">
+                Student: <span className="font-semibold text-slate-200">{student.name}</span>
               </p>
             </div>
           </div>
@@ -58,14 +58,14 @@ export const StudentTraceModal: React.FC<StudentTraceModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => onPrint(student)}
-              className="px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg flex items-center gap-1.5 transition"
+              className="px-3.5 py-1.5 text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center gap-1.5 border border-slate-700 transition"
             >
               <Printer className="w-4 h-4" />
               <span>Marksheet</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition"
+              className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
             >
               <X className="w-5 h-5" />
             </button>

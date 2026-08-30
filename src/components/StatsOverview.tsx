@@ -33,84 +33,84 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
   ).length;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 mb-6">
       {/* Total Students */}
-      <div className="glass-card p-4 flex items-center gap-3">
-        <div className="p-3 bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 rounded-xl">
+      <div className="glass-card p-4 sm:p-5 flex items-center gap-3.5">
+        <div className="p-3 bg-brand-950/70 text-brand-400 rounded-xl border border-brand-800/60 shrink-0">
           <Users className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Total Enrolled</p>
-          <p className="text-xl font-bold text-slate-900 dark:text-white">{total}</p>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">Total Enrolled</p>
+          <p className="text-xl sm:text-2xl font-bold text-white font-mono">{total}</p>
         </div>
       </div>
 
       {/* Passed */}
-      <div className="glass-card p-4 flex items-center gap-3">
-        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 rounded-xl">
+      <div className="glass-card p-4 sm:p-5 flex items-center gap-3.5">
+        <div className="p-3 bg-emerald-950/70 text-emerald-400 rounded-xl border border-emerald-800/60 shrink-0">
           <CheckCircle2 className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Passed (All 6)</p>
-          <p className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{passed}</p>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">Passed (All 6)</p>
+          <p className="text-xl sm:text-2xl font-bold text-emerald-400 font-mono">{passed}</p>
         </div>
       </div>
 
       {/* Failed */}
-      <div className="glass-card p-4 flex items-center gap-3">
-        <div className="p-3 bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 rounded-xl">
+      <div className="glass-card p-4 sm:p-5 flex items-center gap-3.5">
+        <div className="p-3 bg-rose-950/70 text-rose-400 rounded-xl border border-rose-800/60 shrink-0">
           <XCircle className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Failed (Grade F)</p>
-          <p className="text-xl font-bold text-rose-600 dark:text-rose-400">{failed}</p>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">Failed (Grade F)</p>
+          <p className="text-xl sm:text-2xl font-bold text-rose-400 font-mono">{failed}</p>
         </div>
       </div>
 
       {/* Pass Rate */}
-      <div className="glass-card p-4 flex items-center gap-3">
-        <div className="p-3 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+      <div className="glass-card p-4 sm:p-5 flex items-center gap-3.5">
+        <div className="p-3 bg-indigo-950/70 text-indigo-400 rounded-xl border border-indigo-800/60 shrink-0">
           <Award className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Pass Rate</p>
-          <p className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{passRate}%</p>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">Pass Rate</p>
+          <p className="text-xl sm:text-2xl font-bold text-indigo-400 font-mono">{passRate}%</p>
         </div>
       </div>
 
       {/* Average GPA */}
-      <div className="glass-card p-4 flex items-center gap-3">
-        <div className="p-3 bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 rounded-xl">
+      <div className="glass-card p-4 sm:p-5 flex items-center gap-3.5">
+        <div className="p-3 bg-amber-950/70 text-amber-400 rounded-xl border border-amber-800/60 shrink-0">
           <FileSpreadsheet className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">Avg Passing GPA</p>
-          <p className="text-xl font-bold text-slate-900 dark:text-white">{avgGpa}</p>
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">Avg Passing GPA</p>
+          <p className="text-xl sm:text-2xl font-bold text-white font-mono">{avgGpa}</p>
         </div>
       </div>
 
       {/* Hard Edge Cases / Flagged */}
       <div
         onClick={onFilterEdgeCases}
-        className={`glass-card p-4 flex items-center gap-3 cursor-pointer transition ${
+        className={`glass-card p-4 sm:p-5 flex items-center gap-3.5 cursor-pointer transition ${
           isEdgeFilterActive
-            ? 'ring-2 ring-brand-500 bg-brand-50/50 dark:bg-brand-950/50'
-            : 'hover:border-brand-300 dark:hover:border-brand-700'
+            ? 'ring-2 ring-brand-500 bg-brand-950/60 border-brand-500'
+            : 'hover:border-slate-700'
         }`}
       >
-        <div className="p-3 bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 rounded-xl">
+        <div className="p-3 bg-purple-950/70 text-purple-400 rounded-xl border border-purple-800/60 shrink-0">
           <AlertTriangle className="w-5 h-5" />
         </div>
-        <div>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-slate-400 truncate">
             {edgeCount > 0 ? 'Hard Edge Cases' : 'Office Flags'}
           </p>
           <div className="flex items-center gap-1.5">
-            <p className="text-xl font-bold text-purple-600 dark:text-purple-400">
+            <p className="text-xl sm:text-2xl font-bold text-purple-400 font-mono">
               {edgeCount > 0 ? edgeCount : flaggedCount}
             </p>
             {edgeCount > 0 && (
-              <span className="text-[10px] uppercase font-semibold text-brand-600 dark:text-brand-400">
+              <span className="text-[10px] uppercase font-bold text-brand-400 px-1 py-0.2 rounded bg-brand-950/80 border border-brand-800">
                 {isEdgeFilterActive ? 'Active' : 'Filter'}
               </span>
             )}
