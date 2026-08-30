@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Navbar } from './components/Navbar';
 import { StatsOverview } from './components/StatsOverview';
 import { ResultsTable } from './components/ResultsTable';
@@ -63,7 +63,7 @@ export const App: React.FC = () => {
   }, [currentCase.students, subjectsMap, currentCase.compulsory]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans transition-colors duration-200">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -75,7 +75,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-6">
+      <main className="flex-1 w-full px-3 sm:px-6 lg:px-8 xl:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6">
         {/* KPI Stats Overview */}
         <div className="no-print">
           <StatsOverview
@@ -122,10 +122,10 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-400 no-print mt-auto">
+      <footer className="border-t border-slate-800 py-5 text-center text-xs text-slate-400 no-print mt-auto">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
-            © 2026 Bogura Secondary Model High School • Academic Examination &amp; Result Processing System
+            © 2026 Bogura Secondary Model High School • Result Processing &amp; Academic Records
           </p>
           <p className="text-[11px] text-slate-500">
             Board of Intermediate &amp; Secondary Education, Rajshahi
@@ -143,7 +143,7 @@ export const App: React.FC = () => {
         }}
       />
 
-      {/* Printable Individual Marksheet Modal (Bonus 3) */}
+      {/* Printable Individual Student Marksheet (Bonus 3) */}
       <StudentMarksheet
         student={selectedStudentForPrint}
         onClose={() => setSelectedStudentForPrint(null)}

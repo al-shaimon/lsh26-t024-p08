@@ -33,33 +33,34 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
   const gpaWithoutOptional = Number((student.compulsoryGradePointsSum / 6.0).toFixed(2));
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto marksheet-modal-overlay">
-      <div className="bg-white text-slate-900 rounded-xl shadow-2xl w-full max-w-4xl max-h-[96vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150 marksheet-print-card">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 overflow-y-auto marksheet-modal-overlay overscroll-contain">
+      <div className="bg-white text-slate-900 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] flex flex-col overflow-hidden marksheet-print-card">
+        
         {/* Actions Bar (Screen Only - Hidden in Print) */}
-        <div className="px-6 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-100 text-slate-900 no-print">
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-slate-800" />
-            <div>
-              <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
-                Official Academic Transcript &amp; Marksheet
+        <div className="px-3.5 sm:px-6 py-2.5 sm:py-3 border-b border-slate-200 flex items-center justify-between bg-slate-100 text-slate-900 gap-2 shrink-0 no-print">
+          <div className="flex items-center gap-2 min-w-0">
+            <GraduationCap className="w-5 h-5 text-slate-800 shrink-0" />
+            <div className="min-w-0">
+              <span className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider block truncate">
+                Academic Transcript Preview
               </span>
-              <span className="text-[11px] text-slate-600">
-                Single-Page Printable Format (Ctrl + P / Save as PDF)
+              <span className="text-[10px] sm:text-[11px] text-slate-600 block truncate">
+                Official Single-Page A4 Format
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handlePrint}
-              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl shadow-md flex items-center gap-1.5 transition active:scale-95 cursor-pointer whitespace-nowrap"
             >
-              <Printer className="w-4 h-4" />
+              <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Save as PDF / Print</span>
             </button>
             <button
               onClick={onClose}
-              className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 rounded-lg transition cursor-pointer"
+              className="p-1.5 sm:p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 rounded-xl transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -67,9 +68,9 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
         </div>
 
         {/* Printable Marksheet Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto bg-white font-serif text-slate-950 marksheet-sheet">
+        <div className="p-2 sm:p-5 overflow-y-auto overflow-x-auto bg-white font-serif text-slate-950 marksheet-sheet w-full overscroll-contain">
           {/* Certificate Double Border */}
-          <div className="border-[3px] border-double border-slate-900 p-4 sm:p-5 rounded bg-white marksheet-certificate-border space-y-3.5">
+          <div className="min-w-[580px] sm:min-w-0 border-[3px] border-double border-slate-900 p-3 sm:p-5 rounded bg-white marksheet-certificate-border space-y-3 sm:space-y-3.5">
             
             {/* Top Serial & School Header */}
             <div>
@@ -79,25 +80,25 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
                 <span>School Code: <strong>8490</strong></span>
               </div>
 
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start justify-between gap-2 sm:gap-3">
                 {/* Left School Monogram */}
-                <div className="w-16 hidden sm:flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 border border-slate-900 rounded-full flex flex-col items-center justify-center p-1 bg-slate-50">
-                    <GraduationCap className="w-6 h-6 text-slate-900" />
-                    <span className="text-[7px] font-sans font-bold tracking-tighter">ESTD 1974</span>
+                <div className="w-14 hidden sm:flex flex-col items-center justify-center text-center shrink-0">
+                  <div className="w-11 h-11 border border-slate-900 rounded-full flex flex-col items-center justify-center p-1 bg-slate-50">
+                    <GraduationCap className="w-5 h-5 text-slate-900" />
+                    <span className="text-[6px] font-sans font-bold tracking-tighter">ESTD 1974</span>
                   </div>
                 </div>
 
                 {/* Center School Name & Subtitle */}
                 <div className="flex-1 text-center px-1">
-                  <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-wide text-slate-950 font-serif leading-tight">
+                  <h1 className="text-lg sm:text-2xl font-bold uppercase tracking-wide text-slate-950 font-serif leading-tight">
                     Bogura Secondary Model High School
                   </h1>
                   <p className="text-[10px] text-slate-700 font-sans mt-0.5">
                     Bogura Sadar, Bogura, Bangladesh • Established 1974 • EIIN: 119842
                   </p>
                   <div className="mt-1">
-                    <span className="inline-block px-3.5 py-0.5 bg-slate-900 text-white rounded text-[10px] sm:text-[11px] font-bold uppercase tracking-widest font-sans">
+                    <span className="inline-block px-3 py-0.5 bg-slate-900 text-white rounded text-[10px] sm:text-[11px] font-bold uppercase tracking-widest font-sans">
                       Academic Transcript &amp; Grade Report
                     </span>
                   </div>
@@ -107,15 +108,15 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
                 </div>
 
                 {/* Right Grading Scale Key Table */}
-                <div className="w-36 hidden sm:block border border-slate-900 text-[8px] font-sans rounded overflow-hidden">
+                <div className="w-32 sm:w-36 border border-slate-900 text-[8px] font-sans rounded overflow-hidden shrink-0">
                   <div className="bg-slate-900 text-white text-center font-bold py-0.5 uppercase tracking-wider text-[7px]">
-                    Grading Scale Key
+                    Grading Scale
                   </div>
                   <table className="w-full text-center border-collapse">
                     <thead>
                       <tr className="bg-slate-100 border-b border-slate-300 font-bold text-[7px]">
                         <th className="py-0.2">Grade</th>
-                        <th className="py-0.2">Marks Range</th>
+                        <th className="py-0.2">Marks</th>
                         <th className="py-0.2">Point</th>
                       </tr>
                     </thead>
@@ -134,11 +135,11 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
             </div>
 
             {/* Student Particulars Table */}
-            <div className="border border-slate-900 rounded font-sans text-xs bg-slate-50/50 p-2.5">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-1.5 gap-x-4 text-[11px]">
-                <div className="sm:col-span-2">
+            <div className="border border-slate-900 rounded font-sans text-xs bg-slate-50/50 p-2 sm:p-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-1.5 gap-x-3 sm:gap-x-4 text-[10px] sm:text-[11px]">
+                <div className="col-span-2">
                   <span className="text-slate-600">Student Name:</span>
-                  <p className="font-bold text-slate-950 uppercase font-serif text-sm">{student.name}</p>
+                  <p className="font-bold text-slate-950 uppercase font-serif text-xs sm:text-sm">{student.name}</p>
                 </div>
                 <div>
                   <span className="text-slate-600">Student / Roll ID:</span>
@@ -173,47 +174,47 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="bg-slate-900 text-white font-bold border-b border-slate-900 text-[10px] sm:text-[11px]">
-                    <th className="py-2 px-2 text-center w-8 border-r border-slate-700">SI.</th>
-                    <th className="py-2 px-3 border-r border-slate-700">Name of Subjects</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Full Marks</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Theory (75)</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Practical (25)</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Marks Obtained</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Letter Grade</th>
-                    <th className="py-2 px-2 text-center border-r border-slate-700">Grade Point</th>
-                    <th className="py-2 px-2 text-center">GPA</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center w-7 border-r border-slate-700">SI.</th>
+                    <th className="py-1.5 sm:py-2 px-2 sm:px-3 border-r border-slate-700">Name of Subjects</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Full</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Theory (75)</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Practical (25)</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Total Marks</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Grade</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center border-r border-slate-700">Point</th>
+                    <th className="py-1.5 sm:py-2 px-1.5 sm:px-2 text-center">GPA</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-300 text-[11px]">
+                <tbody className="divide-y divide-slate-300 text-[10px] sm:text-[11px]">
                   {compulsorySubjects.map((sub, idx) => {
                     const isSubjectFailed = sub.isSubjectFail;
                     return (
                       <tr key={sub.code} className="hover:bg-slate-50">
-                        <td className="py-1.5 px-2 text-center font-mono text-slate-700 border-r border-slate-300">{idx + 1}</td>
-                        <td className="py-1.5 px-3 font-semibold text-slate-900 border-r border-slate-300">
-                          {sub.name} <span className="text-slate-500 font-mono text-[10px]">({sub.code})</span>
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono text-slate-700 border-r border-slate-300">{idx + 1}</td>
+                        <td className="py-1.5 px-2 sm:px-3 font-semibold text-slate-900 border-r border-slate-300">
+                          {sub.name} <span className="text-slate-500 font-mono text-[9px] sm:text-[10px]">({sub.code})</span>
                         </td>
-                        <td className="py-1.5 px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
-                        <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono border-r border-slate-300">
                           {sub.isAbsent ? 'AB' : sub.isPractical ? sub.theoryMark : '—'}
                         </td>
-                        <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono border-r border-slate-300">
                           {sub.isAbsent ? 'AB' : sub.isPractical ? sub.practicalMark : '—'}
                         </td>
-                        <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono font-bold border-r border-slate-300">
                           {sub.isAbsent ? 'AB' : sub.totalMark}
                         </td>
-                        <td className={`py-1.5 px-2 text-center font-bold border-r border-slate-300 ${isSubjectFailed ? 'text-rose-700' : 'text-slate-950'}`}>
+                        <td className={`py-1.5 px-1.5 sm:px-2 text-center font-bold border-r border-slate-300 ${isSubjectFailed ? 'text-rose-700' : 'text-slate-950'}`}>
                           {sub.letterGrade}
                         </td>
-                        <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                        <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono font-bold border-r border-slate-300">
                           {sub.gradePoint.toFixed(2)}
                         </td>
                         {idx === 0 && (
-                          <td rowSpan={compulsorySubjects.length} className="py-2 px-2 text-center font-mono font-bold text-slate-950 bg-slate-50/50 align-middle">
+                          <td rowSpan={compulsorySubjects.length} className="py-2 px-1.5 sm:px-2 text-center font-mono font-bold text-slate-950 bg-slate-50/50 align-middle">
                             <div>
-                              <span className="text-[10px] text-slate-500 font-normal block font-sans">Compulsory GPA</span>
-                              <span className="text-base">{gpaWithoutOptional.toFixed(2)}</span>
+                              <span className="text-[9px] text-slate-500 font-normal block font-sans">Compulsory GPA</span>
+                              <span className="text-sm sm:text-base">{gpaWithoutOptional.toFixed(2)}</span>
                             </div>
                           </td>
                         )}
@@ -224,29 +225,29 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
                   {/* 4th Optional Subject Section */}
                   {optionalSubject && (
                     <tr className="bg-slate-50/70 border-t-2 border-slate-800">
-                      <td className="py-1.5 px-2 text-center font-bold font-mono border-r border-slate-300">4th</td>
-                      <td className="py-1.5 px-3 font-bold text-slate-950 border-r border-slate-300">
-                        {optionalSubject.name} <span className="text-slate-500 font-mono text-[10px]">({optionalSubject.code}) [Optional]</span>
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-bold font-mono border-r border-slate-300">4th</td>
+                      <td className="py-1.5 px-2 sm:px-3 font-bold text-slate-950 border-r border-slate-300">
+                        {optionalSubject.name} <span className="text-slate-500 font-mono text-[9px] sm:text-[10px]">({optionalSubject.code}) [Optional]</span>
                       </td>
-                      <td className="py-1.5 px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
-                      <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono border-r border-slate-300">
                         {optionalSubject.isAbsent ? 'AB' : optionalSubject.isPractical ? optionalSubject.theoryMark : '—'}
                       </td>
-                      <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono border-r border-slate-300">
                         {optionalSubject.isAbsent ? 'AB' : optionalSubject.isPractical ? optionalSubject.practicalMark : '—'}
                       </td>
-                      <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono font-bold border-r border-slate-300">
                         {optionalSubject.isAbsent ? 'AB' : optionalSubject.totalMark}
                       </td>
-                      <td className="py-1.5 px-2 text-center font-bold border-r border-slate-300">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-bold border-r border-slate-300">
                         {optionalSubject.letterGrade}
                       </td>
-                      <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono font-bold border-r border-slate-300">
                         {optionalSubject.gradePoint.toFixed(2)}
                       </td>
-                      <td className="py-1.5 px-2 text-center font-mono font-bold text-slate-900 bg-slate-100/70">
+                      <td className="py-1.5 px-1.5 sm:px-2 text-center font-mono font-bold text-slate-900 bg-slate-100/70">
                         <div>
-                          <span className="text-[9px] text-slate-500 font-normal block font-sans">Bonus (GP &gt; 2)</span>
+                          <span className="text-[8px] sm:text-[9px] text-slate-500 font-normal block font-sans">Bonus (GP &gt; 2)</span>
                           <span>+{student.optionalBonusGradePoints.toFixed(2)}</span>
                         </div>
                       </td>
@@ -257,8 +258,8 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
             </div>
 
             {/* GPA & Final Result Standing Summary */}
-            <div className="border border-slate-900 rounded font-sans p-2.5 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="space-y-1 text-xs text-slate-700">
+            <div className="border border-slate-900 rounded font-sans p-2 sm:p-2.5 bg-slate-50/50 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+              <div className="space-y-0.5 sm:space-y-1 text-[10px] sm:text-xs text-slate-700">
                 <div className="flex items-center gap-2">
                   <span>Sum of 6 Compulsory Grade Points:</span>
                   <strong className="font-mono text-slate-950">{student.compulsoryGradePointsSum.toFixed(2)}</strong>
@@ -274,15 +275,15 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
               </div>
 
               {/* Official Standing Banner */}
-              <div className="border-t sm:border-t-0 sm:border-l border-slate-300 pt-2 sm:pt-0 sm:pl-5 text-center sm:text-right">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+              <div className="border-t sm:border-t-0 sm:border-l border-slate-300 pt-1.5 sm:pt-0 sm:pl-5 text-center sm:text-right">
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
                   Final Result Standing
                 </span>
                 <div className="flex items-baseline justify-center sm:justify-end gap-2 mt-0.5">
-                  <span className="text-2xl font-black font-mono text-slate-950">
+                  <span className="text-xl sm:text-2xl font-black font-mono text-slate-950">
                     GPA {student.finalGPA.toFixed(2)}
                   </span>
-                  <span className={`px-2.5 py-0.5 rounded text-xs font-bold uppercase ${
+                  <span className={`px-2 py-0.5 rounded text-[10px] sm:text-xs font-bold uppercase ${
                     isFail
                       ? 'bg-rose-100 text-rose-900 border border-rose-400'
                       : 'bg-emerald-100 text-emerald-900 border border-emerald-400'
@@ -291,7 +292,7 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
                   </span>
                 </div>
                 {isFail && (
-                  <p className="text-[10px] text-rose-700 font-semibold mt-0.5">
+                  <p className="text-[9px] text-rose-700 font-semibold mt-0.5">
                     * Result cancelled due to failure in compulsory subject(s)
                   </p>
                 )}
@@ -299,31 +300,31 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
             </div>
 
             {/* Official Authentication & Signatures Block */}
-            <div className="pt-5 pb-1 grid grid-cols-3 gap-6 text-center text-xs font-sans">
-              <div className="border-t border-slate-900 pt-1.5">
+            <div className="pt-4 sm:pt-5 pb-1 grid grid-cols-3 gap-3 sm:gap-6 text-center text-[10px] sm:text-xs font-sans">
+              <div className="border-t border-slate-900 pt-1">
                 <p className="font-bold text-slate-950">Class Teacher</p>
-                <p className="text-[9px] text-slate-500">Prepared &amp; Checked by</p>
+                <p className="text-[8px] sm:text-[9px] text-slate-500">Prepared &amp; Checked</p>
               </div>
 
-              <div className="border-t border-slate-900 pt-1.5 flex flex-col items-center">
+              <div className="border-t border-slate-900 pt-1 flex flex-col items-center">
                 <p className="font-bold text-slate-950">Exam Controller</p>
-                <p className="text-[9px] text-slate-500">Verified by Committee</p>
+                <p className="text-[8px] sm:text-[9px] text-slate-500">Verified by Committee</p>
               </div>
 
-              <div className="border-t border-slate-900 pt-1.5 flex flex-col items-center relative">
+              <div className="border-t border-slate-900 pt-1 flex flex-col items-center relative">
                 {/* Official Circular Seal Graphic */}
-                <div className="w-11 h-11 border border-slate-400 rounded-full flex items-center justify-center text-[7px] font-bold uppercase text-slate-600 -mt-9 mb-1 bg-white shadow-sm">
-                  Official Seal
+                <div className="w-9 h-9 sm:w-11 sm:h-11 border border-slate-400 rounded-full flex items-center justify-center text-[6px] sm:text-[7px] font-bold uppercase text-slate-600 -mt-7 sm:-mt-9 mb-0.5 bg-white shadow-sm">
+                  Seal
                 </div>
                 <p className="font-bold text-slate-950">Headmaster</p>
-                <p className="text-[9px] text-slate-500">Bogura Model High School</p>
+                <p className="text-[8px] sm:text-[9px] text-slate-500">Bogura Model High School</p>
               </div>
             </div>
 
             {/* Bottom Official Timestamp & Footer */}
-            <div className="border-t border-slate-300 pt-1 text-[9px] text-slate-500 font-sans flex justify-between">
+            <div className="border-t border-slate-300 pt-1 text-[8px] sm:text-[9px] text-slate-500 font-sans flex justify-between">
               <span>Date of Issue: <strong>30 August, 2026</strong></span>
-              <span>Bogura Secondary Model High School • Examination Records</span>
+              <span>Bogura Secondary Model High School</span>
               <span>Page 1 of 1</span>
             </div>
 

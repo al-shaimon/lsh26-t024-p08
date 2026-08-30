@@ -30,7 +30,7 @@
 }
 
 /* =========================================================
-   CLEAN SINGLE-PAGE A4 OFFICIAL MARKSHEET PRINT & PDF STYLING
+   FULL-HEIGHT 1-PAGE OFFICIAL MARKSHEET PRINT / PDF STYLING
    ========================================================= */
 @media print {
   @page {
@@ -53,11 +53,11 @@
     color: #0f172a !important;
     width: 100% !important;
     min-height: 0 !important;
-    height: auto !important;
-    max-height: none !important;
+    height: 100% !important;
+    max-height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   /* Hide background application layout */
@@ -81,7 +81,7 @@
     background-color: #ffffff !important;
     backdrop-filter: none !important;
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     min-height: 0 !important;
     max-height: none !important;
     margin: 0 !important;
@@ -97,7 +97,7 @@
     color: #0f172a !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     min-height: 0 !important;
     max-height: none !important;
     margin: 0 !important;
@@ -116,20 +116,23 @@
     padding: 0 !important;
     margin: 0 !important;
     border: none !important;
-    height: auto !important;
+    height: 100% !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     page-break-after: avoid !important;
     break-after: avoid !important;
   }
 
-  /* Natural proportional certificate border fitting 1 single page */
+  /* Exact A4 full-height certificate border */
   .marksheet-certificate-border {
-    width: 100% !important;
-    height: auto !important;
-    padding: 5mm 6mm !important;
-    margin: 0 auto !important;
-    border: 2.5px double #0f172a !important;
+    min-height: 268mm !important;
+    max-height: 272mm !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 6mm 8mm !important;
+    margin: 0 !important;
+    border: 3px double #0f172a !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
