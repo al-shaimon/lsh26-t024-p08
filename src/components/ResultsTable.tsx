@@ -184,16 +184,17 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
       </div>
 
       {/* ------------------------------------------------------------- */}
-      {/* 1. DESKTOP VIEW: Clean Executive Master Table (hidden on mobile) */}
+      {/* 1. DESKTOP VIEW: Full Multi-Column Master Table (hidden on mobile) */}
       {/* ------------------------------------------------------------- */}
       <div className="hidden md:block glass-card overflow-hidden w-full border-slate-800">
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="bg-slate-900 text-slate-300 font-bold border-b border-slate-800 select-none">
+                <th className="py-3 px-3 text-center w-12 text-slate-400">SL</th>
                 <th
                   onClick={() => handleSort('id')}
-                  className="py-3.5 px-4 cursor-pointer hover:text-brand-400 transition w-24"
+                  className="py-3 px-3.5 cursor-pointer hover:text-brand-400 transition w-24"
                 >
                   <div className="flex items-center gap-1">
                     <span>Roll ID</span>
@@ -202,18 +203,18 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                 </th>
                 <th
                   onClick={() => handleSort('name')}
-                  className="py-3.5 px-4 cursor-pointer hover:text-brand-400 transition min-w-[200px]"
+                  className="py-3 px-3.5 cursor-pointer hover:text-brand-400 transition min-w-[170px]"
                 >
                   <div className="flex items-center gap-1">
                     <span>Student Name &amp; Class</span>
                     {sortField === 'name' && (sortAsc ? '▲' : '▼')}
                   </div>
                 </th>
-                <th className="py-3.5 px-4 text-center">4th Optional Subject</th>
-                <th className="py-3.5 px-4 text-center">Subject Status (6 Compulsory)</th>
+                <th className="py-3 px-3 text-center">Compulsory Subjects (6)</th>
+                <th className="py-3 px-3 text-center">4th Optional Subject</th>
                 <th
                   onClick={() => handleSort('rawGPA')}
-                  className="py-3.5 px-3 text-center cursor-pointer hover:text-brand-400 transition"
+                  className="py-3 px-2.5 text-center cursor-pointer hover:text-brand-400 transition w-20"
                   title="Uncancelled raw average according to Board formula"
                 >
                   <div className="flex items-center justify-center gap-1">
@@ -223,21 +224,21 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                 </th>
                 <th
                   onClick={() => handleSort('finalGPA')}
-                  className="py-3.5 px-3 text-center cursor-pointer hover:text-brand-400 transition"
+                  className="py-3 px-2.5 text-center cursor-pointer hover:text-brand-400 transition w-24"
                 >
                   <div className="flex items-center justify-center gap-1">
                     <span>Final GPA</span>
                     {sortField === 'finalGPA' && (sortAsc ? '▲' : '▼')}
                   </div>
                 </th>
-                <th className="py-3.5 px-3 text-center">Grade</th>
-                <th className="py-3.5 px-4 text-right">Actions</th>
+                <th className="py-3 px-2 text-center w-16">Grade</th>
+                <th className="py-3 px-3 text-right w-24">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
               {filteredStudents.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
+                  <td colSpan={9} className="py-12 text-center text-slate-400">
                     <p className="font-medium text-base mb-1">No student records found</p>
                     <p className="text-xs text-slate-500">
                       Try clearing your search query or adjusting the class and status filters.
@@ -245,12 +246,9 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                   </td>
                 </tr>
               ) : (
-                filteredStudents.map((s) => {
+                filteredStudents.map((s, idx) => {
                   const isFail = s.finalLetterGrade === 'F';
                   const opt = s.subjectResults.find((sub) => sub.isOptional);
-                  const failingCompulsory = s.subjectResults.filter(
-                    (sub) => !sub.isOptional && sub.isSubjectFail
-                  );
 
                   return (
                     <tr
@@ -260,8 +258,13 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                         s.edgeCaseTag ? 'bg-purple-950/10' : ''
                       }`}
                     >
+                      {/* SL */}
+                      <td className="py-2.5 px-3 text-center font-mono text-slate-500 font-medium">
+                        {idx + 1}
+                      </td>
+
                       {/* ID / Roll */}
-                      <td className="py-3.5 px-4 font-mono font-bold text-slate-100 whitespace-nowrap">
+                      <td className="py-2.5 px-3.5 font-mono font-bold text-slate-100 whitespace-nowrap">
                         <div className="flex items-center gap-1.5">
                           <span>{s.id}</span>
                           {s.edgeCaseTag && (
@@ -273,13 +276,13 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                       </td>
 
                       {/* Name & Class */}
-                      <td className="py-3.5 px-4 min-w-[200px]">
-                        <div className="font-semibold text-white group-hover:text-brand-400 transition text-sm">
+                      <td className="py-2.5 px-3.5 min-w-[170px]">
+                        <div className="font-semibold text-white group-hover:text-brand-400 transition text-xs sm:text-sm">
                           {s.name}
                         </div>
                         <div className="flex items-center gap-2 mt-0.5">
                           <span className="text-[11px] text-slate-400">
-                            {s.class} (Section A)
+                            {s.class}
                           </span>
                           {s.edgeCaseTag && (
                             <span
@@ -292,15 +295,60 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                         </div>
                       </td>
 
-                      {/* 4th Optional Subject */}
-                      <td className="py-3.5 px-4 text-center">
+                      {/* 6 Compulsory Subjects Inline Strip */}
+                      <td className="py-2.5 px-3">
+                        <div className="flex flex-wrap gap-1 items-center justify-center">
+                          {s.subjectResults
+                            .filter((sub) => !sub.isOptional)
+                            .map((sub) => {
+                              const subFail = sub.isSubjectFail;
+                              return (
+                                <div
+                                  key={sub.code}
+                                  title={`${sub.name} (${sub.code}): ${
+                                    sub.isAbsent
+                                      ? 'Absent (AB)'
+                                      : sub.isPractical
+                                      ? `Theory: ${sub.theoryMark}/75, Practical: ${sub.practicalMark}/25`
+                                      : `Mark: ${sub.totalMark}/100`
+                                  } → GP ${sub.gradePoint.toFixed(1)} [${sub.letterGrade}]`}
+                                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono flex items-center gap-1 border ${
+                                    sub.isAbsent
+                                      ? 'bg-rose-950/80 text-rose-300 border-rose-800'
+                                      : subFail
+                                      ? 'bg-amber-950/80 text-amber-300 border-amber-800'
+                                      : 'bg-slate-800/90 text-slate-300 border-slate-700'
+                                  }`}
+                                >
+                                  <span className="font-bold text-slate-400">{sub.code}:</span>
+                                  <span className="font-bold text-white">
+                                    {sub.isAbsent
+                                      ? 'AB'
+                                      : sub.isPractical
+                                      ? `${sub.theoryMark}+${sub.practicalMark}`
+                                      : sub.totalMark}
+                                  </span>
+                                  <span
+                                    className={`px-1 rounded text-[9px] font-bold ${
+                                      subFail ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'
+                                    }`}
+                                  >
+                                    {sub.gradePoint.toFixed(1)}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </td>
+
+                      {/* 4th Optional Subject Badge */}
+                      <td className="py-2.5 px-3 text-center">
                         {opt ? (
-                          <div className="inline-flex flex-col items-center">
-                            <span className="font-semibold text-slate-200 text-xs">
-                              {opt.name} <span className="font-mono text-slate-400">({opt.code})</span>
-                            </span>
-                            <span className="text-[10px] text-purple-400 font-mono mt-0.5">
-                              {opt.isAbsent ? 'Absent (AB)' : `GP ${opt.gradePoint.toFixed(1)} • Bonus +${s.optionalBonusGradePoints.toFixed(1)}`}
+                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded border text-[10px] font-mono bg-purple-950/60 text-purple-300 border-purple-800">
+                            <span className="font-bold">{opt.code}:</span>
+                            <span className="font-bold">{opt.isAbsent ? 'AB' : opt.totalMark}</span>
+                            <span className="px-1 bg-purple-600 text-white rounded text-[9px] font-bold">
+                              +{s.optionalBonusGradePoints.toFixed(1)}
                             </span>
                           </div>
                         ) : (
@@ -308,37 +356,22 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                         )}
                       </td>
 
-                      {/* Subject Status (6 Compulsory) */}
-                      <td className="py-3.5 px-4 text-center">
-                        {failingCompulsory.length === 0 ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/70 text-emerald-300 border border-emerald-800/80 text-xs font-semibold">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                            <span>All 6 Passed</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/80 text-rose-300 border border-rose-800 text-xs font-semibold">
-                            <XCircle className="w-3.5 h-3.5 text-rose-400" />
-                            <span>Failed in {failingCompulsory.map((f) => f.code).join(', ')}</span>
-                          </span>
-                        )}
-                      </td>
-
                       {/* Raw GPA */}
-                      <td className="py-3.5 px-3 text-center font-mono font-medium text-slate-400">
+                      <td className="py-2.5 px-2.5 text-center font-mono font-medium text-slate-400 text-xs">
                         {s.rawUncancelledGPA.toFixed(2)}
                       </td>
 
                       {/* Final GPA */}
-                      <td className="py-3.5 px-3 text-center font-mono font-bold text-sm text-white">
+                      <td className="py-2.5 px-2.5 text-center font-mono font-bold text-sm text-white">
                         <span className={isFail ? 'text-rose-400 font-bold' : 'text-slate-100'}>
                           {s.finalGPA.toFixed(2)}
                         </span>
                       </td>
 
                       {/* Grade Badge */}
-                      <td className="py-3.5 px-3 text-center">
+                      <td className="py-2.5 px-2 text-center">
                         <span
-                          className={`inline-block px-2.5 py-0.5 rounded-md font-bold text-xs border ${
+                          className={`inline-block px-2 py-0.5 rounded font-bold text-xs border ${
                             isFail
                               ? 'bg-rose-950 text-rose-300 border-rose-800'
                               : 'bg-emerald-950 text-emerald-300 border-emerald-800'
@@ -349,8 +382,8 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                       </td>
 
                       {/* Actions */}
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                        <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="py-2.5 px-3 text-right whitespace-nowrap">
+                        <div className="flex items-center justify-end gap-1" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => onPrintStudent(s)}
                             className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
@@ -360,7 +393,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                           </button>
                           <button
                             onClick={() => onSelectStudent(s)}
-                            className="px-2.5 py-1 text-xs font-semibold text-brand-400 hover:text-brand-300 hover:bg-brand-950/60 rounded-lg transition flex items-center gap-0.5 cursor-pointer"
+                            className="px-2 py-1 text-xs font-semibold text-brand-400 hover:text-brand-300 hover:bg-brand-950/60 rounded-lg transition flex items-center gap-0.5 cursor-pointer"
                           >
                             <span>Trace</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -389,9 +422,6 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
           filteredStudents.map((s) => {
             const isFail = s.finalLetterGrade === 'F';
             const opt = s.subjectResults.find((sub) => sub.isOptional);
-            const failingCompulsory = s.subjectResults.filter(
-              (sub) => !sub.isOptional && sub.isSubjectFail
-            );
 
             return (
               <div
@@ -432,20 +462,36 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                   </div>
                 </div>
 
-                {/* Subject Status Banner */}
-                <div className="flex items-center justify-between text-xs bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/60">
-                  <span className="text-slate-400">Compulsory Subjects:</span>
-                  {failingCompulsory.length === 0 ? (
-                    <span className="text-emerald-300 font-semibold flex items-center gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      All 6 Passed
-                    </span>
-                  ) : (
-                    <span className="text-rose-300 font-semibold flex items-center gap-1">
-                      <XCircle className="w-3.5 h-3.5 text-rose-400" />
-                      Failed in {failingCompulsory.map((f) => f.code).join(', ')}
-                    </span>
-                  )}
+                {/* 6 Compulsory Subjects Grid */}
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block mb-1.5">
+                    Compulsory Subjects (6)
+                  </span>
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {s.subjectResults
+                      .filter((sub) => !sub.isOptional)
+                      .map((sub) => {
+                        const subFail = sub.isSubjectFail;
+                        return (
+                          <div
+                            key={sub.code}
+                            className="p-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-center"
+                          >
+                            <div className="text-[10px] text-slate-400 font-bold">{sub.code}</div>
+                            <div className="text-xs font-mono font-bold text-white mt-0.5">
+                              {sub.isAbsent ? 'AB' : sub.totalMark}
+                            </div>
+                            <span
+                              className={`inline-block px-1 rounded text-[9px] font-bold mt-1 ${
+                                subFail ? 'bg-rose-600 text-white' : 'bg-emerald-600 text-white'
+                              }`}
+                            >
+                              GP {sub.gradePoint.toFixed(1)}
+                            </span>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
 
                 {/* 4th Optional Row */}
@@ -456,7 +502,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                         4th Optional ({opt.name})
                       </span>
                       <span className="text-slate-300 font-mono text-xs mt-0.5 block">
-                        {opt.isAbsent ? 'Absent (AB)' : `GP ${opt.gradePoint.toFixed(1)}`}
+                        {opt.isAbsent ? 'Absent (AB)' : `Score: ${opt.totalMark} • GP ${opt.gradePoint.toFixed(1)}`}
                       </span>
                     </div>
                     <div className="text-right">
