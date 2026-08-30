@@ -4,7 +4,7 @@ import {
   DEFAULT_STUDENTS,
   DEFAULT_SUBJECTS,
 } from "./defaultDataset";
-import publicFixturesRaw from "../../public/P08_school_results_public.json";
+import publicFixturesRaw from "./P08_school_results_public.json";
 
 export interface CaseOption {
   id: string;

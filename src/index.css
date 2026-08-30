@@ -29,30 +29,81 @@
   @apply bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm rounded-xl transition-all duration-200;
 }
 
-/* Print CSS */
+/* =========================================================
+   PERFECT 1-PAGE PRINT / PDF EXPORT STYLING
+   ========================================================= */
 @media print {
-  body {
-    background: white !important;
-    color: black !important;
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
   }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    font-size: 11pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide everything except the marksheet print container */
+  header,
+  footer,
+  main,
+  nav,
   .no-print {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .print-only {
+
+  /* Reset modal overlay for print */
+  .marksheet-modal-overlay {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
     display: block !important;
   }
-  .print-container {
+
+  .marksheet-print-card {
+    position: static !important;
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 auto !important;
     padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
-}
 
-@media screen {
-  .print-only {
-    display: none !important;
+  .marksheet-sheet {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Ensure table borders print crisply */
+  table, tr, td, th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }
