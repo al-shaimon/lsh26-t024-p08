@@ -32,16 +32,16 @@ export const CASE_OPTIONS: CaseOption[] = ALL_FIXTURE_CASES.map((c) => {
   if (c.case_id === "BOGURA-DEFAULT") {
     return {
       id: c.case_id,
-      label: "Bogura High School (Default 64 Students - All 8 Hard Edge Cases)",
-      description: "Includes 64 students across Class 9 & Class 10 with 8 hard edge cases",
+      label: "Bogura Model High School (Current Cohort - 64 Students)",
+      description: "Includes 64 students across Class 9 & Class 10 with audited edge cases",
       studentCount: c.students.length,
       isDefault: true,
     };
   }
   return {
     id: c.case_id,
-    label: `Official Fixture: ${c.case_id} (${c.students.length} Students)`,
-    description: `Published benchmark case ${c.case_id} from official problem release`,
+    label: `Examination Batch: ${c.case_id} (${c.students.length} Students)`,
+    description: `Published benchmark cohort ${c.case_id}`,
     studentCount: c.students.length,
   };
 });

@@ -153,14 +153,14 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
             ))}
             <button
               onClick={() => setSelectedClassFilter('edge')}
-              className={`px-3 py-1.5 rounded-md transition flex items-center gap-1 whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-md transition flex items-center gap-1 whitespace-nowrap cursor-pointer ${
                 selectedClassFilter === 'edge'
                   ? 'bg-purple-600 text-white shadow-sm font-semibold'
                   : 'text-purple-400 hover:text-purple-300'
               }`}
             >
               <Sparkles className="w-3 h-3" />
-              <span>Hard Edge Cases (8)</span>
+              <span>Audited Special Cases (8)</span>
             </button>
           </div>
 

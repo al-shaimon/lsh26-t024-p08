@@ -125,10 +125,10 @@ export const App: React.FC = () => {
       <footer className="border-t border-slate-800 py-6 text-center text-xs text-slate-400 no-print mt-auto">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
-            Bogura Secondary School Result Processing Engine • Problem P08 (Tier 02 - Hard 7.5 pts)
+            © 2026 Bogura Secondary Model High School • Academic Examination &amp; Result Processing System
           </p>
-          <p className="font-mono text-[11px] text-slate-500">
-            Team: <span className="font-bold text-slate-300">LSH26-T024</span> • Event Start Code: <span className="font-bold text-slate-300">LSH26-8490-C900</span>
+          <p className="text-[11px] text-slate-500">
+            Board of Intermediate &amp; Secondary Education, Rajshahi
           </p>
         </div>
       </footer>

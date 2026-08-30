@@ -42,14 +42,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="truncate">
               <div className="flex items-center gap-2">
                 <span className="font-bold text-base sm:text-lg tracking-tight text-white">
-                  Bogura Result Engine
+                  Bogura Secondary Model High School
                 </span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-brand-950 text-brand-300 border border-brand-800 shrink-0">
-                  P08 • Tier 02
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 text-slate-300 border border-slate-700 shrink-0">
+                  Result Processing &amp; GPA Engine
                 </span>
               </div>
               <p className="text-xs text-slate-400 hidden sm:block truncate">
-                Team LSH26-T024 • Board Rules R-10, R-11, R-12, R-13, R-29
+                Board of Intermediate &amp; Secondary Education, Rajshahi • Academic Grading System
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onReset}
               title="Reset to Initial Data"
-              className="p-2 text-slate-300 hover:text-brand-400 bg-slate-800 hover:bg-brand-950/50 rounded-lg border border-slate-700 transition shrink-0"
+              className="p-2 text-slate-300 hover:text-brand-400 bg-slate-800 hover:bg-brand-950/50 rounded-lg border border-slate-700 transition shrink-0 cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-1.5 sm:gap-2 border-t border-slate-800/60 overflow-x-auto py-2.5 no-scrollbar">
           <button
             onClick={() => setActiveTab('results')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition cursor-pointer ${
               activeTab === 'results'
                 ? 'bg-brand-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -100,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => setActiveTab('checklist')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition cursor-pointer ${
               activeTab === 'checklist'
                 ? 'bg-brand-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -112,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition cursor-pointer ${
               activeTab === 'analytics'
                 ? 'bg-brand-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -124,17 +124,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => setActiveTab('upload')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition cursor-pointer ${
               activeTab === 'upload'
                 ? 'bg-brand-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Upload className="w-4 h-4" />
-            <span>Upload &amp; Validate</span>
-            <span className="px-1.5 py-0.5 rounded text-[10px] bg-amber-950 text-amber-300 font-bold flex items-center gap-0.5 border border-amber-800/60">
-              <Sparkles className="w-2.5 h-2.5" /> Bonus
-            </span>
+            <span>Upload Marksheet</span>
           </button>
         </div>
       </div>

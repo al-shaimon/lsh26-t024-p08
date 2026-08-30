@@ -24,10 +24,10 @@ export const DEFAULT_STUDENTS: StudentRaw[] = [
   // ==========================================
   {
     id: "S-EDGE-01",
-    name: "Tariqul Islam (Edge: High Avg Fail)",
+    name: "Tariqul Islam",
     class: "Class 9",
     optional: "HMT",
-    edgeCaseTag: "Edge 1: Strong Average (Raw GPA 4.33) but Failed 1 Compulsory Subject (Bio = 0) -> Overall Result F (GPA 0.00)",
+    edgeCaseTag: "High Average with Failed Compulsory Subject (Bio = 0)",
     marks: {
       BAN: 88,
       ENG: 82,
@@ -40,15 +40,15 @@ export const DEFAULT_STUDENTS: StudentRaw[] = [
   },
   {
     id: "S-EDGE-02",
-    name: "Nusrat Jahan (Edge: Practical Fail)",
+    name: "Nusrat Jahan",
     class: "Class 9",
     optional: "AGR",
-    edgeCaseTag: "Edge 2: Practical Component Fail (< 8) with Passing Theory in Physics (Theory 55/75, Practical 6/25) -> Subject GP 0.0",
+    edgeCaseTag: "Practical Component Fail (< 8) with Passing Theory in Physics",
     marks: {
       BAN: 72,
       ENG: 68,
       MAT: 75,
-      PHY: { theory: 55, practical: 6 }, // Practical < 8 -> R-11 Fail! Total 61 ignored
+      PHY: { theory: 55, practical: 6 }, // Practical < 8 -> Fail! Total 61 ignored
       CHE: { theory: 48, practical: 18 }, // Total 66 (3.5)
       BIO: { theory: 50, practical: 19 }, // Total 69 (3.5)
       AGR: { theory: 60, practical: 20 }, // Total 80 (5.0) -> Bonus +3.0
@@ -56,26 +56,26 @@ export const DEFAULT_STUDENTS: StudentRaw[] = [
   },
   {
     id: "S-EDGE-03",
-    name: "Farhan Ahmed (Edge: Theory Fail)",
+    name: "Farhan Ahmed",
     class: "Class 9",
     optional: "HMT",
-    edgeCaseTag: "Edge 3: Theory Component Fail (< 25) with Passing Practical in Chemistry (Theory 22/75, Practical 20/25) -> Subject GP 0.0",
+    edgeCaseTag: "Theory Fail (< 25) with Passing Practical in Chemistry",
     marks: {
-      BAN: 65,
-      ENG: 60,
-      MAT: 70,
-      PHY: { theory: 45, practical: 18 }, // Total 63 (3.5)
-      CHE: { theory: 22, practical: 20 }, // Theory < 25 -> R-11 Fail! Total 42 ignored
-      BIO: { theory: 48, practical: 16 }, // Total 64 (3.5)
-      HMT: { theory: 52, practical: 18 }, // Total 70 (4.0) -> Bonus +2.0
+      BAN: 80,
+      ENG: 75,
+      MAT: 82,
+      PHY: { theory: 45, practical: 15 }, // Total 60 (3.5)
+      CHE: { theory: 20, practical: 24 }, // Theory < 25 -> Fail! Total 44 ignored
+      BIO: { theory: 42, practical: 16 }, // Total 58 (3.0)
+      HMT: { theory: 70, practical: 25 }, // Total 95 (5.0) -> Bonus +3.0
     },
   },
   {
     id: "S-EDGE-04",
-    name: "Sabrina Akter (Edge: Optional <= 2.0)",
+    name: "Sabrina Akter",
     class: "Class 9",
     optional: "AGR",
-    edgeCaseTag: "Edge 4: Optional 4th Subject GP <= 2.0 (GP 2.00) -> Adds 0.00 Bonus Points (Flagged on Checking List)",
+    edgeCaseTag: "4th Optional Subject GP <= 2.0 (GP 2.00) -> Adds 0 Bonus GP",
     marks: {
       BAN: 62,
       ENG: 58,
@@ -83,15 +83,15 @@ export const DEFAULT_STUDENTS: StudentRaw[] = [
       PHY: { theory: 40, practical: 15 }, // Total 55 (3.0)
       CHE: { theory: 42, practical: 16 }, // Total 58 (3.0)
       BIO: { theory: 38, practical: 14 }, // Total 52 (3.0)
-      AGR: { theory: 30, practical: 12 }, // Total 42 (2.0) -> Bonus max(0, 2-2) = 0.00
+      AGR: { theory: 30, practical: 12 }, // Total 42 (2.0) -> Bonus: max(0, 2-2) = 0.0
     },
   },
   {
     id: "S-EDGE-05",
-    name: "Mahmud Hasan (Edge: Optional Absent)",
+    name: "Mahmud Hasan",
     class: "Class 10",
     optional: "HMT",
-    edgeCaseTag: "Edge 5: Absent ('AB') in Optional Subject -> Contributes 0.00 Bonus (Flagged on Checking List)",
+    edgeCaseTag: "Absent ('AB') in Optional Subject -> Contributes 0 Bonus",
     marks: {
       BAN: 78,
       ENG: 74,
@@ -99,39 +99,39 @@ export const DEFAULT_STUDENTS: StudentRaw[] = [
       PHY: { theory: 50, practical: 20 }, // Total 70 (4.0)
       CHE: { theory: 52, practical: 18 }, // Total 70 (4.0)
       BIO: { theory: 54, practical: 20 }, // Total 74 (4.0)
-      HMT: "AB",                          // Absent in 4th subject -> GP 0, Bonus 0
+      HMT: "AB",                          // Absent in optional -> 0 bonus
     },
   },
   {
     id: "S-EDGE-06",
-    name: "Sadia Rahman (Edge: Compulsory Absent)",
+    name: "Sadia Afrin",
     class: "Class 10",
     optional: "AGR",
-    edgeCaseTag: "Edge 6: Absent ('AB') in Compulsory Subject (Mathematics) -> Subject GP 0.0, Overall Result F",
+    edgeCaseTag: "Absent ('AB') in Compulsory Subject (English) -> Result Cancelled (F)",
     marks: {
       BAN: 85,
-      ENG: 80,
-      MAT: "AB",                          // Absent in Compulsory -> GP 0, Overall F
-      PHY: { theory: 58, practical: 22 }, // Total 80 (5.0)
-      CHE: { theory: 55, practical: 21 }, // Total 76 (4.0)
-      BIO: { theory: 60, practical: 22 }, // Total 82 (5.0)
-      AGR: { theory: 62, practical: 21 }, // Total 83 (5.0) -> Bonus +3.0
+      ENG: "AB",                          // Absent in compulsory -> Result F
+      MAT: 90,
+      PHY: { theory: 60, practical: 20 }, // Total 80 (5.0)
+      CHE: { theory: 58, practical: 22 }, // Total 80 (5.0)
+      BIO: { theory: 62, practical: 21 }, // Total 83 (5.0)
+      AGR: { theory: 65, practical: 20 }, // Total 85 (5.0) -> Bonus +3.0
     },
   },
   {
     id: "S-EDGE-07",
-    name: "Rifat Hossain (Edge: Numeric 0 vs AB)",
+    name: "Rifat Ahmed",
     class: "Class 10",
     optional: "HMT",
-    edgeCaseTag: "Edge 7: Scored Numerical Zero (0) in English (Distinct from Absent 'AB')",
+    edgeCaseTag: "Numerical 0 vs Absent Distinction (Scored 0 in Bangla)",
     marks: {
-      BAN: 55,
-      ENG: 0,                             // Scored 0, NOT "AB"
-      MAT: 62,
-      PHY: { theory: 35, practical: 14 }, // Total 49 (2.0)
-      CHE: { theory: 38, practical: 15 }, // Total 53 (3.0)
-      BIO: { theory: 40, practical: 15 }, // Total 55 (3.0)
-      HMT: { theory: 45, practical: 15 }, // Total 60 (3.5) -> Bonus +1.5
+      BAN: 0,                             // Scored zero mark (not absent)
+      ENG: 65,
+      MAT: 70,
+      PHY: { theory: 45, practical: 18 }, // Total 63 (3.5)
+      CHE: { theory: 40, practical: 15 }, // Total 55 (3.0)
+      BIO: { theory: 42, practical: 16 }, // Total 58 (3.0)
+      HMT: { theory: 55, practical: 18 }, // Total 73 (4.0) -> Bonus +2.0
     },
   },
   {

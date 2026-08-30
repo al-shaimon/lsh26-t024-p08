@@ -89,7 +89,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
         </div>
       </div>
 
-      {/* Hard Edge Cases / Flagged */}
+      {/* Audited Special Cases */}
       <div
         onClick={onFilterEdgeCases}
         className={`glass-card p-4 sm:p-5 flex items-center gap-3.5 cursor-pointer transition ${
@@ -103,7 +103,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({
         </div>
         <div className="min-w-0">
           <p className="text-xs font-medium text-slate-400 truncate">
-            {edgeCount > 0 ? 'Hard Edge Cases' : 'Office Flags'}
+            {edgeCount > 0 ? 'Special Audit Cases' : 'Office Checklist Flags'}
           </p>
           <div className="flex items-center gap-1.5">
             <p className="text-xl sm:text-2xl font-bold text-purple-400 font-mono">
