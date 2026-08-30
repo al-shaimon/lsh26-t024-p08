@@ -35,19 +35,23 @@
     {
       "registered_name": "Abdullah Al Shaimon",
       "github_username": "al-shaimon",
-      "major_contribution": "GPA engine architecture, rule verification, UI/UX implementation, and test suite automation",
+      "major_contribution": "Problem P08 Lead: Architecture & implementation of deterministic GPA calculation engine (rules R-10, R-11, R-12, R-13, R-29), 25-fixture automated test suite (1,765 students), 64-student dataset with 8 hard edge cases, interactive calculation trace modal, office verification checklists, class analytics, marksheet upload validator, and printable academic transcript.",
       "evidence_paths_or_commits": [
         "src/engine/gpaEngine.ts",
-        "src/components/ResultsTable.tsx"
+        "src/engine/__tests__/runFixtures.mjs",
+        "src/data/defaultDataset.ts",
+        "src/components/StudentTraceModal.tsx",
+        "src/components/OfficeChecklist.tsx",
+        "src/components/ResultsTable.tsx",
+        "src/components/StudentMarksheet.tsx"
       ]
     },
     {
       "registered_name": "Md. Arif Bin Hashem Mahim",
       "github_username": "amahim",
-      "major_contribution": "Office checklist filters, dataset integration, edge case validation, and marksheet export",
+      "major_contribution": "Problem P10 Lead (Repository: lsh26-t024-p10): Lead developer for team's second problem (Prepaid Meter Recharge Advisor), implementing multi-slab tariff calculation engine, 6-month daily consumption simulation, recharge habit comparison, and P10 test validation.",
       "evidence_paths_or_commits": [
-        "src/components/OfficeChecklist.tsx",
-        "src/components/StudentMarksheet.tsx"
+        "https://github.com/amahim/lsh26-t024-p10"
       ]
     }
   ],

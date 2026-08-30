@@ -138,10 +138,17 @@ All calculations completed deterministically with zero runtime errors!
 
 ---
 
-## 👥 9. Team & AI Disclosure
+## 👥 9. Team & Contributions
 
 - **Team ID**: `LSH26-T024`
-- **Team Members**:
-  - **Abdullah Al Shaimon** (`al-shaimon`): GPA engine architecture, rule verification, UI/UX implementation, test suite automation.
-  - **Md. Arif Bin Hashem Mahim** (`amahim`): Office checklist filters, dataset integration, edge case validation, marksheet export.
+- **Team Members & Problem Division**:
+  - **Abdullah Al Shaimon** (`al-shaimon`) — **Problem P08 Lead**:
+    - Architected and implemented the entire **Problem P08 (School Result Processing & GPA Engine)** solution.
+    - Designed the deterministic calculation engine adhering strictly to official Board rules (R-10, R-11, R-12, R-13, R-29).
+    - Built the automated test runner validating all 25 benchmark fixtures (1,765 students) with 100% accuracy.
+    - Developed the master results table, calculation trace modal, office verification checklists, analytics charts, upload validator, and printable A4 academic transcript.
+  - **Md. Arif Bin Hashem Mahim** (`amahim`) — **Problem P10 Lead**:
+    - Architected and built the team's second problem: **Problem P10 (Prepaid Meter Recharge Advisor)** in repository [`lsh26-t024-p10`](https://github.com/amahim/lsh26-t024-p10).
+    - Implemented the multi-slab tariff calculation engine, daily consumption balance rebuild, and recharge habit comparison.
+
 - **AI Tool Disclosure**: Google Antigravity & Gemini were used for engine algorithm scaffolding, test fixture runner scripting, and responsive UI styling. All formulas and output logic were verified against official problem rulings R-10, R-11, R-12, R-13, and R-29.
