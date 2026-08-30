@@ -30,7 +30,7 @@
 }
 
 /* =========================================================
-   FULL-HEIGHT 1-PAGE OFFICIAL MARKSHEET PRINT / PDF STYLING
+   CLEAN SINGLE-PAGE A4 OFFICIAL MARKSHEET PRINT & PDF STYLING
    ========================================================= */
 @media print {
   @page {
@@ -53,11 +53,11 @@
     color: #0f172a !important;
     width: 100% !important;
     min-height: 0 !important;
-    height: 100% !important;
-    max-height: 100% !important;
+    height: auto !important;
+    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   /* Hide background application layout */
@@ -81,7 +81,7 @@
     background-color: #ffffff !important;
     backdrop-filter: none !important;
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
     margin: 0 !important;
@@ -97,7 +97,7 @@
     color: #0f172a !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
     margin: 0 !important;
@@ -116,23 +116,20 @@
     padding: 0 !important;
     margin: 0 !important;
     border: none !important;
-    height: 100% !important;
+    height: auto !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     page-break-after: avoid !important;
     break-after: avoid !important;
   }
 
-  /* Exact A4 full-height certificate border */
+  /* Natural proportional certificate border fitting 1 single page */
   .marksheet-certificate-border {
-    height: 275mm !important;
-    max-height: 275mm !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    padding: 6mm 7mm !important;
-    margin: 0 !important;
-    border: 3px double #1e293b !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 5mm 6mm !important;
+    margin: 0 auto !important;
+    border: 2.5px double #0f172a !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }

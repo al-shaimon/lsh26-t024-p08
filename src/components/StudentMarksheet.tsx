@@ -2,13 +2,7 @@ import React from 'react';
 import {
   X,
   Printer,
-  GraduationCap,
-  Award,
-  CheckCircle2,
-  XCircle,
-  FileDown,
-  ShieldCheck,
-  Building2
+  GraduationCap
 } from 'lucide-react';
 import { StudentResult } from '../types/school';
 
@@ -28,7 +22,15 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
   };
 
   const isFail = student.finalLetterGrade === 'F';
+  const serialNo = `TR-2026-${student.id.replace(/\D/g, '').padStart(4, '0')}`;
   const regNo = `26108490${student.id.replace(/\D/g, '').padStart(3, '0')}`;
+
+  // Find optional and compulsory subjects
+  const optionalSubject = student.subjectResults.find((s) => s.isOptional);
+  const compulsorySubjects = student.subjectResults.filter((s) => !s.isOptional);
+
+  // Raw GPA without optional subject
+  const gpaWithoutOptional = Number((student.compulsoryGradePointsSum / 6.0).toFixed(2));
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto marksheet-modal-overlay">
@@ -36,13 +38,13 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
         {/* Actions Bar (Screen Only - Hidden in Print) */}
         <div className="px-6 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-100 text-slate-900 no-print">
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-indigo-700" />
+            <GraduationCap className="w-5 h-5 text-slate-800" />
             <div>
               <span className="text-xs font-bold text-slate-900 uppercase tracking-wider block">
-                Official Academic Transcript Preview
+                Official Academic Transcript &amp; Marksheet
               </span>
               <span className="text-[11px] text-slate-600">
-                Full-Page A4 Printable Format (Ctrl + P / Save as PDF)
+                Single-Page Printable Format (Ctrl + P / Save as PDF)
               </span>
             </div>
           </div>
@@ -50,7 +52,7 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="px-4 py-2 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transition active:scale-95 cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>Save as PDF / Print</span>
@@ -64,239 +66,265 @@ export const StudentMarksheet: React.FC<StudentMarksheetProps> = ({
           </div>
         </div>
 
-        {/* Printable Marksheet Body (Full A4 Layout) */}
-        <div className="p-4 sm:p-6 overflow-y-auto bg-white font-sans text-slate-900 marksheet-sheet flex flex-col justify-between">
-          {/* Certificate Double Border Container (Fills Full Height in Print) */}
-          <div className="border-4 border-double border-slate-800 p-4 sm:p-6 rounded-lg bg-white marksheet-certificate-border flex flex-col justify-between space-y-4">
+        {/* Printable Marksheet Body */}
+        <div className="p-4 sm:p-6 overflow-y-auto bg-white font-serif text-slate-950 marksheet-sheet">
+          {/* Certificate Double Border */}
+          <div className="border-[3px] border-double border-slate-900 p-4 sm:p-5 rounded bg-white marksheet-certificate-border space-y-3.5">
             
-            {/* 1. Header: Board Name & Institution */}
-            <div className="flex items-start justify-between border-b-2 border-slate-800 pb-3">
-              {/* Left School Monogram */}
-              <div className="w-20 hidden sm:flex flex-col items-center justify-center text-center">
-                <div className="w-14 h-14 border-2 border-slate-800 rounded-full flex flex-col items-center justify-center p-1 bg-slate-50">
-                  <GraduationCap className="w-7 h-7 text-slate-900" />
-                  <span className="text-[7px] font-black tracking-tighter">ESTD 1974</span>
-                </div>
-                <span className="text-[8px] font-bold text-slate-600 mt-1 uppercase">CODE: 8490</span>
+            {/* Top Serial & School Header */}
+            <div>
+              <div className="flex items-center justify-between text-[10px] text-slate-700 font-sans border-b border-slate-300 pb-1 mb-2">
+                <span>Transcript No: <strong className="font-mono text-slate-900">{serialNo}</strong></span>
+                <span className="font-bold uppercase tracking-wider">OFFICIAL ACADEMIC RECORD</span>
+                <span>School Code: <strong>8490</strong></span>
               </div>
 
-              {/* Center Title & Institution */}
-              <div className="flex-1 text-center px-2">
-                <p className="text-[11px] font-bold uppercase tracking-widest text-slate-600">
-                  Board of Intermediate &amp; Secondary Education, Rajshahi
-                </p>
-                <h1 className="text-xl sm:text-2xl font-black uppercase tracking-wide text-slate-950 font-serif leading-tight mt-0.5">
-                  Bogura Secondary Model High School
-                </h1>
-                <p className="text-[11px] text-slate-600 font-medium mt-0.5">
-                  Bogura Sadar, Bogura, Bangladesh • EIIN: 119842 • Center Code: 320
-                </p>
-                <div className="mt-1.5">
-                  <span className="inline-block px-3.5 py-0.5 bg-slate-900 text-white rounded text-[11px] sm:text-[12px] font-black uppercase tracking-widest">
-                    Academic Transcript &amp; Grade Report
-                  </span>
+              <div className="flex items-start justify-between gap-3">
+                {/* Left School Monogram */}
+                <div className="w-16 hidden sm:flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 border border-slate-900 rounded-full flex flex-col items-center justify-center p-1 bg-slate-50">
+                    <GraduationCap className="w-6 h-6 text-slate-900" />
+                    <span className="text-[7px] font-sans font-bold tracking-tighter">ESTD 1974</span>
+                  </div>
                 </div>
-                <p className="text-[10px] text-slate-600 font-semibold uppercase mt-1">
-                  Secondary School Certificate (SSC) Standard Examination - 2026
-                </p>
-              </div>
 
-              {/* Right Grading Scale Table */}
-              <div className="w-36 hidden sm:block border border-slate-800 text-[8px] rounded overflow-hidden">
-                <div className="bg-slate-900 text-white text-center font-bold py-0.5 uppercase tracking-wider text-[7px]">
-                  Grading Scale Key
+                {/* Center School Name & Subtitle */}
+                <div className="flex-1 text-center px-1">
+                  <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-wide text-slate-950 font-serif leading-tight">
+                    Bogura Secondary Model High School
+                  </h1>
+                  <p className="text-[10px] text-slate-700 font-sans mt-0.5">
+                    Bogura Sadar, Bogura, Bangladesh • Established 1974 • EIIN: 119842
+                  </p>
+                  <div className="mt-1">
+                    <span className="inline-block px-3.5 py-0.5 bg-slate-900 text-white rounded text-[10px] sm:text-[11px] font-bold uppercase tracking-widest font-sans">
+                      Academic Transcript &amp; Grade Report
+                    </span>
+                  </div>
+                  <p className="text-[9px] text-slate-600 font-semibold uppercase mt-0.5 font-sans">
+                    Annual Examination &amp; Secondary Assessment - 2026
+                  </p>
                 </div>
-                <table className="w-full text-center border-collapse">
-                  <tbody>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">80 - 100</td><td className="font-bold">A+</td><td>5.0</td></tr>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">70 - 79</td><td className="font-bold">A</td><td>4.0</td></tr>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">60 - 69</td><td className="font-bold">A-</td><td>3.5</td></tr>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">50 - 59</td><td className="font-bold">B</td><td>3.0</td></tr>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">40 - 49</td><td className="font-bold">C</td><td>2.0</td></tr>
-                    <tr className="border-b border-slate-200"><td className="px-1 py-0.2">33 - 39</td><td className="font-bold">D</td><td>1.0</td></tr>
-                    <tr><td className="px-1 py-0.2 text-rose-700 font-semibold">00 - 32</td><td className="font-bold text-rose-700">F</td><td className="text-rose-700">0.0</td></tr>
-                  </tbody>
-                </table>
+
+                {/* Right Grading Scale Key Table */}
+                <div className="w-36 hidden sm:block border border-slate-900 text-[8px] font-sans rounded overflow-hidden">
+                  <div className="bg-slate-900 text-white text-center font-bold py-0.5 uppercase tracking-wider text-[7px]">
+                    Grading Scale Key
+                  </div>
+                  <table className="w-full text-center border-collapse">
+                    <thead>
+                      <tr className="bg-slate-100 border-b border-slate-300 font-bold text-[7px]">
+                        <th className="py-0.2">Grade</th>
+                        <th className="py-0.2">Marks Range</th>
+                        <th className="py-0.2">Point</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-slate-200 font-medium"><td>A+</td><td>80 - 100</td><td>5.0</td></tr>
+                      <tr className="border-b border-slate-200 font-medium"><td>A</td><td>70 - 79</td><td>4.0</td></tr>
+                      <tr className="border-b border-slate-200 font-medium"><td>A-</td><td>60 - 69</td><td>3.5</td></tr>
+                      <tr className="border-b border-slate-200 font-medium"><td>B</td><td>50 - 59</td><td>3.0</td></tr>
+                      <tr className="border-b border-slate-200 font-medium"><td>C</td><td>40 - 49</td><td>2.0</td></tr>
+                      <tr className="border-b border-slate-200 font-medium"><td>D</td><td>33 - 39</td><td>1.0</td></tr>
+                      <tr className="font-bold text-rose-800"><td>F</td><td>00 - 32</td><td>0.0</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
-            {/* 2. Student Particulars Table */}
-            <div className="border border-slate-800 rounded bg-slate-50/50 p-2.5 text-xs">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-2 gap-x-4 text-[11px]">
-                <div>
-                  <span className="text-slate-500 font-medium">Student's Name:</span>
-                  <p className="font-bold text-slate-950 uppercase">{student.name}</p>
+            {/* Student Particulars Table */}
+            <div className="border border-slate-900 rounded font-sans text-xs bg-slate-50/50 p-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-1.5 gap-x-4 text-[11px]">
+                <div className="sm:col-span-2">
+                  <span className="text-slate-600">Student Name:</span>
+                  <p className="font-bold text-slate-950 uppercase font-serif text-sm">{student.name}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-medium">Student / Roll ID:</span>
+                  <span className="text-slate-600">Student / Roll ID:</span>
                   <p className="font-bold font-mono text-slate-950">{student.id}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-medium">Class &amp; Section:</span>
+                  <span className="text-slate-600">Registration No:</span>
+                  <p className="font-bold font-mono text-slate-950">{regNo}</p>
+                </div>
+
+                <div>
+                  <span className="text-slate-600">Class &amp; Section:</span>
                   <p className="font-bold text-slate-950">{student.class} (Section A)</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-medium">Registration No:</span>
-                  <p className="font-bold font-mono text-slate-950">{regNo}</p>
+                  <span className="text-slate-600">Group:</span>
+                  <p className="font-bold text-slate-950 uppercase">Science</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-medium">Group:</span>
-                  <p className="font-bold text-slate-950">Science</p>
+                  <span className="text-slate-600">Student Type:</span>
+                  <p className="font-bold text-slate-950 uppercase">Regular</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-medium">Student Type:</span>
-                  <p className="font-bold text-slate-950">Regular</p>
-                </div>
-                <div>
-                  <span className="text-slate-500 font-medium">Academic Session:</span>
-                  <p className="font-bold text-slate-950">2025 - 2026</p>
-                </div>
-                <div>
-                  <span className="text-slate-500 font-medium">4th Optional Subject:</span>
-                  <p className="font-bold text-slate-950">{student.optionalSubjectCode}</p>
+                  <span className="text-slate-600">Academic Session:</span>
+                  <p className="font-bold text-slate-950 font-mono">2025 - 2026</p>
                 </div>
               </div>
             </div>
 
-            {/* 3. Marks & Subject Breakdown Table */}
-            <div className="border border-slate-800 rounded overflow-hidden flex-1">
+            {/* Subject Marks & Grade Table */}
+            <div className="border border-slate-900 rounded overflow-hidden font-sans">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-slate-900 text-white font-bold border-b border-slate-800 text-[11px]">
-                    <th className="py-2 px-2 text-center w-8">SL</th>
-                    <th className="py-2 px-3">Subject Name &amp; Code</th>
-                    <th className="py-2 px-2 text-center">Type</th>
-                    <th className="py-2 px-2 text-center">Theory (75)</th>
-                    <th className="py-2 px-2 text-center">Practical (25)</th>
-                    <th className="py-2 px-2 text-center">Total (100)</th>
-                    <th className="py-2 px-2 text-center">Letter Grade</th>
-                    <th className="py-2 px-2 text-center">Grade Point</th>
-                    <th className="py-2 px-3 text-left">Remark / Rule</th>
+                  <tr className="bg-slate-900 text-white font-bold border-b border-slate-900 text-[10px] sm:text-[11px]">
+                    <th className="py-2 px-2 text-center w-8 border-r border-slate-700">SI.</th>
+                    <th className="py-2 px-3 border-r border-slate-700">Name of Subjects</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Full Marks</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Theory (75)</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Practical (25)</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Marks Obtained</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Letter Grade</th>
+                    <th className="py-2 px-2 text-center border-r border-slate-700">Grade Point</th>
+                    <th className="py-2 px-2 text-center">GPA</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-300 text-[11px]">
-                  {student.subjectResults.map((sub, idx) => {
-                    const subFail = sub.isSubjectFail;
+                  {compulsorySubjects.map((sub, idx) => {
+                    const isSubjectFailed = sub.isSubjectFail;
                     return (
-                      <tr key={sub.code} className={subFail ? 'bg-rose-50/70' : 'hover:bg-slate-50'}>
-                        <td className="py-2 px-2 text-center font-mono text-slate-600">{idx + 1}</td>
-                        <td className="py-2 px-3 font-semibold text-slate-900">
-                          {sub.name} <span className="font-mono text-slate-500 text-[10px]">({sub.code})</span>
+                      <tr key={sub.code} className="hover:bg-slate-50">
+                        <td className="py-1.5 px-2 text-center font-mono text-slate-700 border-r border-slate-300">{idx + 1}</td>
+                        <td className="py-1.5 px-3 font-semibold text-slate-900 border-r border-slate-300">
+                          {sub.name} <span className="text-slate-500 font-mono text-[10px]">({sub.code})</span>
                         </td>
-                        <td className="py-2 px-2 text-center">
-                          <span className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded ${
-                            sub.isOptional ? 'bg-purple-100 text-purple-800 border border-purple-300' : 'text-slate-600'
-                          }`}>
-                            {sub.isOptional ? 'Optional' : 'Compulsory'}
-                          </span>
+                        <td className="py-1.5 px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
+                        <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                          {sub.isAbsent ? 'AB' : sub.isPractical ? sub.theoryMark : '—'}
                         </td>
-                        <td className="py-2 px-2 text-center font-mono font-medium">
-                          {sub.isAbsent ? 'AB' : sub.isPractical ? sub.theoryMark : '-'}
+                        <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                          {sub.isAbsent ? 'AB' : sub.isPractical ? sub.practicalMark : '—'}
                         </td>
-                        <td className="py-2 px-2 text-center font-mono font-medium">
-                          {sub.isAbsent ? 'AB' : sub.isPractical ? sub.practicalMark : '-'}
-                        </td>
-                        <td className="py-2 px-2 text-center font-mono font-bold">
+                        <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
                           {sub.isAbsent ? 'AB' : sub.totalMark}
                         </td>
-                        <td className="py-2 px-2 text-center font-bold">
-                          <span className={`px-2 py-0.5 rounded text-[10px] ${
-                            subFail ? 'bg-rose-200 text-rose-900 border border-rose-400 font-extrabold' : 'text-slate-900'
-                          }`}>
-                            {sub.letterGrade}
-                          </span>
+                        <td className={`py-1.5 px-2 text-center font-bold border-r border-slate-300 ${isSubjectFailed ? 'text-rose-700' : 'text-slate-950'}`}>
+                          {sub.letterGrade}
                         </td>
-                        <td className="py-2 px-2 text-center font-mono font-bold">
+                        <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
                           {sub.gradePoint.toFixed(2)}
                         </td>
-                        <td className="py-2 px-3 text-[10px] text-slate-600 truncate max-w-[200px]">
-                          {sub.ruleApplied}
-                        </td>
+                        {idx === 0 && (
+                          <td rowSpan={compulsorySubjects.length} className="py-2 px-2 text-center font-mono font-bold text-slate-950 bg-slate-50/50 align-middle">
+                            <div>
+                              <span className="text-[10px] text-slate-500 font-normal block font-sans">Compulsory GPA</span>
+                              <span className="text-base">{gpaWithoutOptional.toFixed(2)}</span>
+                            </div>
+                          </td>
+                        )}
                       </tr>
                     );
                   })}
+
+                  {/* 4th Optional Subject Section */}
+                  {optionalSubject && (
+                    <tr className="bg-slate-50/70 border-t-2 border-slate-800">
+                      <td className="py-1.5 px-2 text-center font-bold font-mono border-r border-slate-300">4th</td>
+                      <td className="py-1.5 px-3 font-bold text-slate-950 border-r border-slate-300">
+                        {optionalSubject.name} <span className="text-slate-500 font-mono text-[10px]">({optionalSubject.code}) [Optional]</span>
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-mono text-slate-600 border-r border-slate-300">100</td>
+                      <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                        {optionalSubject.isAbsent ? 'AB' : optionalSubject.isPractical ? optionalSubject.theoryMark : '—'}
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-mono border-r border-slate-300">
+                        {optionalSubject.isAbsent ? 'AB' : optionalSubject.isPractical ? optionalSubject.practicalMark : '—'}
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                        {optionalSubject.isAbsent ? 'AB' : optionalSubject.totalMark}
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-bold border-r border-slate-300">
+                        {optionalSubject.letterGrade}
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-mono font-bold border-r border-slate-300">
+                        {optionalSubject.gradePoint.toFixed(2)}
+                      </td>
+                      <td className="py-1.5 px-2 text-center font-mono font-bold text-slate-900 bg-slate-100/70">
+                        <div>
+                          <span className="text-[9px] text-slate-500 font-normal block font-sans">Bonus (GP &gt; 2)</span>
+                          <span>+{student.optionalBonusGradePoints.toFixed(2)}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
 
-            {/* 4. GPA Calculation Summary & Official Result Standing */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 border border-slate-800 p-3 rounded bg-slate-50/50">
-              {/* Arithmetic Summary */}
-              <div className="space-y-1.5 text-[11px] border-r-0 sm:border-r border-slate-300 pr-0 sm:pr-3">
-                <div className="flex justify-between text-slate-700">
-                  <span>Sum of 6 Compulsory Subject Grade Points:</span>
-                  <span className="font-mono font-bold text-slate-950">
-                    {student.compulsoryGradePointsSum.toFixed(2)}
-                  </span>
+            {/* GPA & Final Result Standing Summary */}
+            <div className="border border-slate-900 rounded font-sans p-2.5 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="space-y-1 text-xs text-slate-700">
+                <div className="flex items-center gap-2">
+                  <span>Sum of 6 Compulsory Grade Points:</span>
+                  <strong className="font-mono text-slate-950">{student.compulsoryGradePointsSum.toFixed(2)}</strong>
                 </div>
-                <div className="flex justify-between text-slate-700">
-                  <span>4th Subject Additional Bonus (GP &gt; 2.00):</span>
-                  <span className="font-mono font-bold text-slate-950">
-                    +{student.optionalBonusGradePoints.toFixed(2)}
-                  </span>
+                <div className="flex items-center gap-2">
+                  <span>4th Subject Additional Bonus GP:</span>
+                  <strong className="font-mono text-slate-950">+{student.optionalBonusGradePoints.toFixed(2)}</strong>
                 </div>
-                <div className="flex justify-between text-slate-700">
-                  <span>Divisor (Constant 6-Subject Rule):</span>
-                  <span className="font-mono font-bold text-slate-950">6</span>
-                </div>
-                <div className="flex justify-between text-slate-700 pt-1 border-t border-slate-300">
-                  <span>Uncancelled Raw Average GPA:</span>
-                  <span className="font-mono font-bold text-slate-950">
-                    {student.rawUncancelledGPA.toFixed(2)}
-                  </span>
+                <div className="flex items-center gap-2">
+                  <span>Divisor:</span>
+                  <strong className="font-mono text-slate-950">6 (Fixed)</strong>
                 </div>
               </div>
 
-              {/* Final Result Standing Box */}
-              <div className="flex flex-col justify-center items-center text-center">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-600">
-                  Final Official Result Standing
+              {/* Official Standing Banner */}
+              <div className="border-t sm:border-t-0 sm:border-l border-slate-300 pt-2 sm:pt-0 sm:pl-5 text-center sm:text-right">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                  Final Result Standing
                 </span>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-3xl font-black font-mono text-slate-950">
+                <div className="flex items-baseline justify-center sm:justify-end gap-2 mt-0.5">
+                  <span className="text-2xl font-black font-mono text-slate-950">
                     GPA {student.finalGPA.toFixed(2)}
                   </span>
-                  <span className={`px-2.5 py-0.5 rounded text-xs font-black uppercase ${
-                    isFail ? 'bg-rose-100 text-rose-900 border border-rose-400' : 'bg-emerald-100 text-emerald-900 border border-emerald-400'
+                  <span className={`px-2.5 py-0.5 rounded text-xs font-bold uppercase ${
+                    isFail
+                      ? 'bg-rose-100 text-rose-900 border border-rose-400'
+                      : 'bg-emerald-100 text-emerald-900 border border-emerald-400'
                   }`}>
                     Grade: {student.finalLetterGrade} ({isFail ? 'FAILED' : 'PASSED'})
                   </span>
                 </div>
                 {isFail && (
-                  <p className="text-[10px] text-rose-700 font-bold mt-1">
-                    * Overall result cancelled due to failure in compulsory subject(s) (Rule R-13)
+                  <p className="text-[10px] text-rose-700 font-semibold mt-0.5">
+                    * Result cancelled due to failure in compulsory subject(s)
                   </p>
                 )}
               </div>
             </div>
 
-            {/* 5. Verification Signatures Block */}
-            <div className="pt-8 pb-2 grid grid-cols-3 gap-6 text-center text-xs">
-              <div className="border-t-2 border-slate-800 pt-1.5">
-                <p className="font-bold text-slate-950">Assistant Teacher</p>
-                <p className="text-[10px] text-slate-500">Tabulator / Checked by</p>
+            {/* Official Authentication & Signatures Block */}
+            <div className="pt-5 pb-1 grid grid-cols-3 gap-6 text-center text-xs font-sans">
+              <div className="border-t border-slate-900 pt-1.5">
+                <p className="font-bold text-slate-950">Class Teacher</p>
+                <p className="text-[9px] text-slate-500">Prepared &amp; Checked by</p>
               </div>
 
-              <div className="border-t-2 border-slate-800 pt-1.5 flex flex-col items-center">
-                <p className="font-bold text-slate-950">Controller of Examinations</p>
-                <p className="text-[10px] text-slate-500">Verified by Committee</p>
+              <div className="border-t border-slate-900 pt-1.5 flex flex-col items-center">
+                <p className="font-bold text-slate-950">Exam Controller</p>
+                <p className="text-[9px] text-slate-500">Verified by Committee</p>
               </div>
 
-              <div className="border-t-2 border-slate-800 pt-1.5 flex flex-col items-center relative">
+              <div className="border-t border-slate-900 pt-1.5 flex flex-col items-center relative">
                 {/* Official Circular Seal Graphic */}
-                <div className="w-12 h-12 border border-slate-400 rounded-full flex items-center justify-center text-[7px] font-black uppercase text-slate-600 -mt-10 mb-1 bg-white shadow-sm">
+                <div className="w-11 h-11 border border-slate-400 rounded-full flex items-center justify-center text-[7px] font-bold uppercase text-slate-600 -mt-9 mb-1 bg-white shadow-sm">
                   Official Seal
                 </div>
                 <p className="font-bold text-slate-950">Headmaster</p>
-                <p className="text-[10px] text-slate-500">Bogura Model High School</p>
+                <p className="text-[9px] text-slate-500">Bogura Model High School</p>
               </div>
             </div>
 
-            {/* 6. Bottom Footer Note */}
-            <div className="text-center pt-2 border-t border-slate-300 text-[10px] text-slate-500 flex justify-between">
-              <span>Date of Publication: 30 August, 2026</span>
-              <span>Bogura Secondary Model High School • Result Verification Engine</span>
-              <span>Page 1 of 1 (Official Record)</span>
+            {/* Bottom Official Timestamp & Footer */}
+            <div className="border-t border-slate-300 pt-1 text-[9px] text-slate-500 font-sans flex justify-between">
+              <span>Date of Issue: <strong>30 August, 2026</strong></span>
+              <span>Bogura Secondary Model High School • Examination Records</span>
+              <span>Page 1 of 1</span>
             </div>
 
           </div>
